@@ -1,0 +1,67 @@
+<div class="max-w-3xl mx-auto p-6 bg-white shadow rounded-lg mt-6">
+    <h2 class="text-2xl font-bold mb-4">Modifier un film</h2>
+  
+    <form [formGroup]="form" (ngSubmit)="submit()" class="space-y-4">
+  
+      <div>
+        <label class="block text-sm font-medium text-gray-700">Titre</label>
+        <input type="text" formControlName="title" class="w-full border border-gray-300 rounded px-3 py-2" />
+      </div>
+  
+      <div>
+        <label class="block text-sm font-medium text-gray-700">Description</label>
+        <textarea formControlName="description" rows="4" class="w-full border border-gray-300 rounded px-3 py-2"></textarea>
+      </div>
+  
+      <div>
+        <label class="block text-sm font-medium text-gray-700">Date de sortie</label>
+        <input type="date" formControlName="releaseDate" class="w-full border border-gray-300 rounded px-3 py-2" />
+      </div>
+  
+      <div>
+        <label class="block text-sm font-medium text-gray-700">Réalisateur</label>
+        <select formControlName="directorId" class="w-full border border-gray-300 rounded px-3 py-2">
+          <option [value]="0" disabled>-- Choisir un réalisateur --</option>
+          <option *ngFor="let director of directors" [value]="director.id">
+            {{ director.firstName }} {{ director.lastName }}
+          </option>
+        </select>
+      </div>
+  
+      <div>
+        <label class="block text-sm font-medium text-gray-700">Acteurs</label>
+        <select formControlName="actors" multiple class="w-full border border-gray-300 rounded px-3 py-2 h-32">
+          <option *ngFor="let actor of actors" [value]="actor.id">
+            {{ actor.firstName }} {{ actor.lastName }}
+          </option>
+        </select>
+      </div>
+  
+      <div>
+        <label class="block text-sm font-medium text-gray-700">Poster</label>
+        <input type="file" (change)="onPosterChange($event)" class="block mt-1" />
+        <div *ngIf="posterUrl" class="mt-2">
+          <p class="text-sm text-gray-500 mb-1">Poster actuel :</p>
+          <img [src]="posterUrl" alt="Poster actuel" class="w-32 h-auto rounded shadow" />
+        </div>
+      </div>
+  
+      <div class="pt-4">
+        <button type="submit"
+        class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded transition duration-200 flex items-center justify-center"
+        [disabled]="form.invalid || loading">
+        <div *ngIf="loading" class="flex">
+          <svg *ngIf="loading" class="animate-spin h-5 w-5 text-white mr-2" xmlns="http://www.w3.org/2000/svg" fill="none"
+            viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
+          </svg>
+          <span>Traitement...</span>
+        </div>
+        <span *ngIf="!loading">Mettre à jour</span>
+      </button>  
+      </div>
+  
+    </form>
+  </div>
+  

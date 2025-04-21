@@ -1,0 +1,26 @@
+<div class="min-h-screen bg-gray-50 p-6">
+  <div class="flex justify-between items-center mb-6">
+    <h1 class="text-3xl font-bold text-gray-800">Catalogue de Films</h1>
+    <div>
+      <div *ngIf="!loggedIn;">
+        <a routerLink="/auth/login" class="text-blue-600 hover:underline mr-4">Se connecter</a>
+        <a routerLink="/auth/register" class="text-blue-600 hover:underline">S’inscrire</a>
+      </div>
+      <div *ngIf="loggedIn">
+          <a [routerLink]="isAdmin ? '/admin/dashboard' : '/user/dashboard'" ><span class="text-gray-600">Connecté en tant que <strong>{{ email
+                }}</strong></span></a>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+    <div *ngFor="let film of films" class="bg-white rounded-lg shadow p-4">
+      <img [src]="'http://localhost:8080/api/uploads/'+film.poster" alt="Poster"
+        class="h-48 w-full object-cover rounded mb-4" />
+      <h2 class="text-xl font-semibold mb-1">{{ film.title }}</h2>
+      <p class="text-gray-600 text-sm">{{ film.description }}</p>
+      <p class="mt-2 text-sm text-gray-400">Sorti le {{ film.releaseDate | date }}</p>
+    </div>
+  </div>
+</div>

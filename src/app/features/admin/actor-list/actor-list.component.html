@@ -1,0 +1,50 @@
+<div class="p-6">
+    <h2 class="text-2xl font-semibold mb-4">Actors List</h2>
+    <a
+      routerLink="/admin/actors/add"
+      class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md"
+      >Add Actor</a
+    >
+    <table class="w-full mt-4 border border-gray-200 rounded shadow-sm">
+      <thead class="bg-gray-100">
+        <tr class="text-left">
+          <th class="p-2">#</th>
+          <th class="p-2">First Name</th>
+          <th class="p-2">Last Name</th>
+          <th class="p-2">Nationality</th>
+          <th class="p-2">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          *ngFor="let actor of actors; let i = index"
+          class="hover:bg-gray-50 border-b"
+        >
+          <td class="p-2">{{ i + 1 }}</td>
+          <td class="p-2">{{ actor.firstName }}</td>
+          <td class="p-2">{{ actor.lastName }}</td>
+          <td class="p-2">{{ actor.nationality }}</td>
+          <td class="p-2">
+            <a
+              [routerLink]="['/admin/actors/edit', actor.id]"
+              class="text-blue-600 hover:underline mr-2"
+              >Edit</a
+            >
+            <button
+              class="text-red-600 hover:underline"
+              (click)="openConfirmModal(actor)"
+            >
+              Delete
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+<app-confirm-dialog
+  *ngIf="selectedActor"
+  [message]="'Voulez-vous vraiment supprimer ' + selectedActor.firstName + ' ' + selectedActor.lastName + ' ?'"
+  (confirm)="deleteActor()"
+  (cancel)="selectedActor = null"
+/>
+  

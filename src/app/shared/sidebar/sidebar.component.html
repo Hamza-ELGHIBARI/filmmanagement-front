@@ -1,0 +1,18 @@
+<nav class="w-64 h-screen bg-gray-800 text-white flex flex-col p-4">
+    <h2 class="text-xl font-bold mb-6">Movie App</h2>
+    <a *ngIf="isAdmin" routerLink="/admin/actors" 
+    routerLinkActive="text-blue-500 font-semibold border-b-2 border-blue-500"
+    class="mb-2 hover:bg-gray-700 p-2 rounded">Actors</a>
+    <a *ngIf="isAdmin" routerLink="/admin/directors" 
+    routerLinkActive="text-blue-500 font-semibold border-b-2 border-blue-500"
+    class="mb-2 hover:bg-gray-700 p-2 rounded">Directors</a>
+    <a *ngIf="isAdmin" routerLink="/admin/films" 
+    routerLinkActive="text-blue-500 font-semibold border-b-2 border-blue-500"
+    class="mb-2 hover:bg-gray-700 p-2 rounded">Films</a>
+    <a *ngIf="isUser" routerLink="/user/favorite" 
+    routerLinkActive="text-blue-500 font-semibold border-b-2 border-blue-500"
+    class="mb-2 hover:bg-gray-700 p-2 rounded">Favorite</a>
+    <a  (click) ="logout()"class="mb-2 hover:bg-gray-700 p-2 rounded">Logout</a>
+    <h6 class="text-sm font-bold mb-6">{{email}}</h6>
+</nav>
+  

@@ -1,0 +1,60 @@
+<h2 class="text-2xl font-bold mb-4 text-center mt-32">Inscription</h2>
+
+<form [formGroup]="form" (ngSubmit)="submit()" class="space-y-4 max-w-md mx-auto">
+  <!-- Email -->
+  <div>
+    <label class="block text-sm font-medium mb-1">Email</label>
+    <input
+      formControlName="email"
+      type="email"
+      class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+      [ngClass]="{ 'border-red-500': form.get('email')?.invalid && form.get('email')?.touched }"
+    />
+    <p class="text-red-500 text-sm mt-1" *ngIf="form.get('email')?.touched && form.get('email')?.invalid">
+      Un email valide est requis.
+    </p>
+  </div>
+
+  <!-- Mot de passe -->
+  <div>
+    <label class="block text-sm font-medium mb-1">Mot de passe</label>
+    <input
+      formControlName="password"
+      type="password"
+      class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+      [ngClass]="{ 'border-red-500': form.get('password')?.invalid && form.get('password')?.touched }"
+    />
+    <p class="text-red-500 text-sm mt-1" *ngIf="form.get('password')?.touched && form.get('password')?.invalid">
+      Le mot de passe est requis (au moins 6 caractères).
+    </p>
+  </div>
+
+  <!-- Submit Button -->
+  <button
+    type="submit"
+    [disabled]="form.invalid || loading"
+    class="w-full bg-green-600 text-white py-2 px-4 rounded-md hover:bg-green-700 transition disabled:opacity-50 flex items-center justify-center"
+  >
+  <div *ngIf="loading" class="flex">
+    <svg
+      *ngIf="loading"
+      class="animate-spin h-5 w-5 mr-2 text-white"
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+    >
+      <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+      <path
+        class="opacity-75"
+        fill="currentColor"
+        d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+      ></path>
+    </svg>
+    <span >Traitement...</span></div>
+    <span *ngIf="!loading">S’inscrire</span>
+  </button>
+
+  <!-- Success / Error messages -->
+  <p class="text-green-600 text-center mt-2" *ngIf="success">{{ success }}</p>
+  <p class="text-red-600 text-center mt-2" *ngIf="error">{{ error }}</p>
+</form>

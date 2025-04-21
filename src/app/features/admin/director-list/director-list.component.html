@@ -1,0 +1,34 @@
+<div class="p-6">
+    <h2 class="text-2xl font-semibold mb-4">List of Directors</h2>
+    <a routerLink="/admin/directors/add" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md">Add
+        Director</a>
+    <table class="min-w-full border">
+        <thead class="bg-gray-100">
+            <tr>
+                <th class="px-4 py-2">First Name</th>
+                <th class="px-4 py-2">Last Name</th>
+                <th class="px-4 py-2">Nationality</th>
+                <th class="px-4 py-2">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let director of directors" class="border-t">
+                <td class="px-4 py-2">{{ director.firstName }}</td>
+                <td class="px-4 py-2">{{ director.lastName }}</td>
+                <td class="px-4 py-2">{{ director.nationality }}</td>
+                <td class="px-4 py-2">
+                    <a [routerLink]="['/admin/directors/edit', director.id]" class="text-blue-500 mr-2">Edit</a>
+                    <button
+                    class="text-red-600 hover:underline"
+                    (click)="openConfirmModal(director)"
+                  >
+                    Delete
+                  </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<app-confirm-dialog *ngIf="selectedDirector"
+    [message]="'Voulez-vous vraiment supprimer ' + selectedDirector.firstName + ' ' + selectedDirector.lastName + ' ?'"
+    (confirm)="deleteDirector()" (cancel)="selectedDirector = null" />
